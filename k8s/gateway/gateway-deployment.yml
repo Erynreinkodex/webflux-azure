@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gateway-api
+  name: gateway-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-api
+      version: "v1"
+  template:
+    metadata:
+      labels:
+        app: gateway-api
+        version: "v1"
+    spec:
+      terminationGracePeriodSeconds: 31
+      containers:
+        - image: setleaguetest.azurecr.io/gateway-api:v1
+          name: gateway-api
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: acr-secret
+

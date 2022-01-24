@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: league-api
+  labels:
+    app: league-api
+spec:
+  selector:
+    matchLabels:
+      app: league-api
+      version: "v1"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: league-api
+        version: "v1"
+    spec:
+      terminationGracePeriodSeconds: 31
+      containers:
+        - name: league-api
+          image: league-api
+          ports:
+            - containerPort: 8080
+          env:
+            - name: spring.data.mongodb.host
+              value: league

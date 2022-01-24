@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game-api
+  labels:
+    app: game-api
+spec:
+  selector:
+    matchLabels:
+      app: game-api
+      version: "v1"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: game-api
+        version: "v1"
+    spec:
+      terminationGracePeriodSeconds: 31
+      containers:
+        - name: game-api
+          image: game-api
+          ports:
+            - containerPort: 8080
+          env:
+            - name: spring.data.mongodb.host
+              value: game
